@@ -6,6 +6,8 @@ class Firelog
 
     static private $timer = 0.0;
 
+    static protected $_enabled = true;
+
     /**
      * @param null $obj
      * @param null $label
@@ -13,6 +15,11 @@ class Firelog
      */
     static public function log($obj = null, $label = null, $type = LoggerLevel::LEVEL_LOG)
     {
+
+        if (!static::$_enabled) {
+            return;
+        }
+
         if ($type == LoggerLevel::LEVEL_TRACE) {
             $e = new \Exception();
             $obj = explode("\n", $e->getTraceAsString());
@@ -38,6 +45,11 @@ class Firelog
      */
     static public function mem($info = '')
     {
+
+        if (!static::$_enabled) {
+            return;
+        }
+
         $txt = round(memory_get_usage() / 1024 / 1024, 2) . ' Mo / ' . round(memory_get_usage(true) / 1024 / 1024, 2) . ' Mo';
         $txt .= $info != '' ? ' (' . $info . ')' : '';
         firelog($txt, 'MemoryUsage', 'info');
@@ -49,5 +61,15 @@ class Firelog
         self::$timer = microtime(true);
 
         return $delay;
+    }
+
+    static public function enable()
+    {
+        static::$_enabled = true;
+    }
+
+    static public function disable()
+    {
+        static::$_enabled = false;
     }
 }
