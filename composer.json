@@ -1,0 +1,19 @@
+{
+    "name": "bixev/firelog",
+    "description": "FirePHP and ChromePHP console logging",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "firephp/firephp-core": "~0.4",
+        "ccampbell/chromephp": "~4.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "1.0.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-0": {"Bixev\\Firelog\\": "src/"}
+    },
+    "minimum-stability": "dev"
+}
